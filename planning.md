@@ -198,3 +198,47 @@ The AI’s suggestions will not be treated as final conclusions. I will verify a
 The hardest part of this project will likely be annotation consistency. I need to avoid labeling based on whether I personally agree with a comment. A negative comment can still be **Analysis** if it gives specific reasoning, and a positive comment can still be a **Hot Take** if it makes an exaggerated claim without support.
 
 My main focus during annotation will be deciding what the comment is primarily doing. This should help keep the labels mutually exclusive and make the final model easier to evaluate.
+## Fine-Tuned Model Evaluation
+
+I fine-tuned `distilbert-base-uncased` on my labeled Frieren discourse dataset using four labels: `analysis`, `reaction`, `hot_take`, and `lore_info`. The fine-tuned model was evaluated on a held-out test set of 17 examples. The zero-shot Groq baseline achieved an accuracy of **0.6471**, while the fine-tuned DistilBERT model achieved an accuracy of **0.1765**. This means the fine-tuned model performed **0.4706 worse** than the zero-shot baseline on the same test set.
+
+### Results Comparison
+
+| Model                    | Accuracy |
+| ------------------------ | -------: |
+| Zero-shot baseline: Groq |   0.6471 |
+| Fine-tuned DistilBERT    |   0.1765 |
+| Difference               |  -0.4706 |
+
+The fine-tuned model performed worse than expected. Since this is a four-label classification task, random guessing would be around 25% accuracy, so an accuracy of 17.65% suggests that the model did not learn the label distinctions well. This is likely due to a combination of small dataset size, small test set size, and difficulty learning subjective discourse categories from limited examples.
+
+### Fine-Tuned Model Confusion Matrix
+
+| True Label | Predicted analysis | Predicted reaction | Predicted hot_take | Predicted lore_info |
+| ---------- | -----------------: | -----------------: | -----------------: | ------------------: |
+| analysis   |                  0 |                  0 |                  5 |                   0 |
+| reaction   |                  0 |                  0 |                  5 |                   0 |
+| hot_take   |                  0 |                  1 |                  3 |                   0 |
+| lore_info  |                  0 |                  1 |                  2 |                   0 |
+
+The confusion matrix shows that the fine-tuned model predicted `hot_take` for most examples. It never correctly predicted `analysis`, `reaction`, or `lore_info`, and it only correctly classified 3 examples from the `hot_take` class. This suggests that the model may have collapsed toward one dominant prediction pattern rather than learning the full label taxonomy.
+
+### What Went Wrong
+
+One issue is that the test set was very small, with only 17 examples. With such a small test set, each mistake has a large effect on the final accuracy. However, the confusion matrix shows a deeper issue than just test set size: the model heavily overpredicted `hot_take`.
+
+A likely reason is that the dataset was too small for DistilBERT to learn subtle distinctions between subjective discourse labels. Labels like `analysis`, `reaction`, and `hot_take` can overlap in real comments. For example, a comment can express frustration while also making a broad claim, or it can include factual details while using them to make an interpretation. A larger dataset with more examples of each boundary case would likely help the model learn these differences more reliably.
+
+Another possible issue is that the model may have learned surface-level cues instead of deeper reasoning. Words associated with strong opinions, such as “overrated,” “boring,” “bad,” or “best,” may have pushed the model toward `hot_take`, even when the comment actually contained enough reasoning to count as `analysis`.
+
+### Comparison to Zero-Shot Baseline
+
+The zero-shot Groq baseline performed much better than the fine-tuned DistilBERT model. This makes sense because the Groq model is a much larger language model with stronger general reasoning ability. It can use the label definitions directly at inference time, while DistilBERT had to learn the classification boundaries from a small training dataset.
+
+This result shows that fine-tuning is not automatically better than prompting. For this project, the zero-shot model was better at applying the label definitions, while the fine-tuned model struggled to generalize.
+
+### Reflection
+
+The main lesson from this result is that label design and dataset size matter more than simply running a fine-tuning pipeline. My labels were meaningful, but they were subjective and sometimes close together. With a small dataset, the fine-tuned model did not have enough examples to learn the boundaries between `analysis`, `reaction`, `hot_take`, and `lore_info`.
+
+If I improved this project, I would collect more labeled examples, especially difficult boundary cases between `reaction` and `hot_take` and between `analysis` and `lore_info`. I would also check the training split, make sure the labels are balanced across train/validation/test sets, and experiment with more training epochs or class weighting. I would not deploy the current fine-tuned model as a real community tool because it overpredicts `hot_take` too often. However, the evaluation is still useful because it shows where the model failed and why the zero-shot baseline was stronger for this task.
