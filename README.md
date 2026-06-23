@@ -2,6 +2,11 @@
 
 **TakeMeter** is a text classifier that labels what kind of contribution a Reddit comment makes to a discussion. This version focuses on public Reddit comments about *Frieren: Beyond Journey's End*. The goal is not to decide whether a comment is right or wrong, but to classify the type of discourse it represents.
 
+## Links
+
+- **Demo video:** https://youtu.be/wk6y7087h3M
+- **Google Colab notebook:** https://colab.research.google.com/drive/1ClI7OSQgLsDgqMohXPPYfYE6IKJYbnJp?usp=sharing
+
 ## Labels
 
 | Label       | Meaning                                                                                                                     |
