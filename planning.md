@@ -93,6 +93,43 @@ The hardest overlaps will probably be **Reaction vs. Hot Take** and **Analysis v
 
 If many comments fit two labels equally well during annotation, I will revise the boundary rules before finishing the dataset. If two labels overlap too much, I may merge them or redefine them.
 
+## Hard Edge Cases
+
+These are specific comments I found difficult to label during annotation, along with why they were hard and how I decided.
+
+### Case 1: Overall impression with a brief reason — Reaction vs. Analysis
+
+**Comment:**
+"Really hard show to get people into in my experience. I personally love the slow start and the pacing, and I think it really makes the higher intensity arcs shine brighter because they actually build the characters. Definitely a one of a kind anime in my repertoire."
+
+**Why it was hard:**
+The comment expresses the commenter's overall feeling about the show, but it also gestures at a reason — that the slow pacing builds characters and makes the higher-intensity arcs stronger. That partial reasoning pulls it toward **Analysis**, while the personal, impression-based framing pulls it toward **Reaction**.
+
+**Decision:**
+I labeled it **Reaction**. Although the commenter is responding to the show, they are describing a general feeling about it as a whole rather than analyzing a specific scene, arc, or moment. The reasoning stays at the level of broad personal impression ("I love the slow start," "one of a kind"), so the comment defaults to the more general feeling rather than a developed argument.
+
+### Case 2: Questions about the magic system — Analysis vs. Lore/Info
+
+**Comment:**
+"It's stated many times that imagination is everything in spellcasting, but really what's even the limit to this? Or what does imagination really determine? For example, Übel could cut a defensive magic so strong that no one could penetrate just because 'I imagined cutting the cloak because cloaks can be cut.' I don't think a magic system as great as Frieren's would have a flaw like this — is there anything I have missed about this explanation, or is this really it? If it's really all about imagining whether a spell can do something or not, then wouldn't it make extremely delusional people extremely strong mages?"
+
+**Why it was hard:**
+The comment leans toward **Analysis** because the commenter is not just stating facts about the magic system — they are interpreting it, probing its logic, and raising their own theories (e.g., that delusional people might become strong mages). At the same time, the comment is framed almost entirely as open questions about how the established lore works, which pulls it toward **Lore/Info**.
+
+**Decision:**
+I labeled it **Lore/Info**. The main purpose of the post is to ask how the magic system actually works and to invite clarification, rather than to commit to a developed argument. The interpretive parts are posed as questions, not conclusions. This was also the thread that started a larger discussion, where the more developed **Analysis** appeared in the replies. Since this comment's primary function is to raise the question and request explanation, I treated it as **Lore/Info** and reserved the **Analysis** label for the responses that built arguments from it.
+
+### Case 3: Personal impression that turns into a claim — Reaction vs. Hot Take
+
+**Comment:**
+"I've never heard of it described as the saddest thing ever, just that the first episode will make you cry. Not might make you cry, will make you cry. The rest of the show never has that lingering feeling, but lives in the present."
+
+**Why it was hard:**
+The first part of the comment reads like a **Reaction** — the commenter is expressing their own emotional impression of the show and how it affected them. But the comment ends with a broader claim about the show as a whole ("the rest of the show never has that lingering feeling, but lives in the present"), which is a general, somewhat absolute statement about its tone. That shift pulls it from a personal feeling toward a **Hot Take**.
+
+**Decision:**
+I labeled it **Hot Take**. The closing statement is doing the main work of the comment: the commenter uses their reaction and feeling to support a broad characterization of the entire show rather than just describing how it made them feel. Because the comment builds toward that sweeping claim instead of staying a raw emotional response, I treated it as a **Hot Take** rather than a **Reaction**.
+
 ## Data Collection Plan
 
 I plan to collect at least **200 public text examples** from Frieren-related Reddit discussions. I will mainly collect comments rather than posts because comments are more varied and easier to classify by discourse type.
